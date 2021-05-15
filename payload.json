@@ -1,0 +1,22 @@
+{
+  "scope": [
+    {
+      "type":"ALL"
+    }
+  ],
+  "loans": [
+    {
+      "id": "ABC10001",
+      "amount": 999919,
+      "deposit": 100,
+      "applicant": {
+        "age": 45,
+        "name": "John"
+      },
+      "underwriter": {
+        "name": "Wile E. Coyote",
+        "underwriterType": "JUNIOR"
+      }
+    }
+  ]
+}

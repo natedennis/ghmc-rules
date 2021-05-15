@@ -1,0 +1,50 @@
+package com.ghmc.queries;
+unit LoanUnit;
+
+import com.ghmc.model.Loan;
+import com.ghmc.model.Applicant;
+import com.ghmc.model.Underwriter;
+import com.ghmc.model.UnderwriterType;
+import com.ghmc.model.RuleEvent;
+import com.ghmc.model.Scope;
+import com.ghmc.model.ScopeType;
+
+
+
+rule Eligibility_Rule_Id_1
+when
+    $s: /scope[ type in (ScopeType.ALL, ScopeType.ELIGIBILITY) ]
+    $l: /loans[ amount <= 100000 ]
+then
+    modify($l) {
+        getEligibilityList().add(new RuleEvent("Eligibility_Rule_Id_1", "loan amount too low"))
+    };
+end
+
+rule Pricing_Rule_Id_2
+when
+    /scope[ type in (ScopeType.ALL, ScopeType.PRICING) ]
+    $l: /loans[ amount > 100000, amount < 250000 ]
+then
+    modify($l) {
+        getPricingList().add(new RuleEvent("Pricing_Rule_Id_2", ".25"))
+    };
+end
+
+
+rule Security_Rule_Id_3
+when
+    /scope[ type in (ScopeType.ALL, ScopeType.SECURITY) ]
+    $l: /loans[ amount > 350000,
+                underwriter!.underwriterType == UnderwriterType.JUNIOR ]
+then
+    modify($l) {
+        getSecurityList().add(new RuleEvent("Security_Rule_Id_3", "Approval button disabled"))
+    };
+end
+
+
+query Process
+    $l: /loans
+end
+
