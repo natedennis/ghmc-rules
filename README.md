@@ -23,7 +23,7 @@ When using native image compilation, you will also need:
 ### Compile (native) 
 
 ```sh
-./mvnw clean package -Dnative -Dnative-image.docker-build=true -Dquarkus.native.container-build=true -Dmaven.test.skip=true;
+./mvnw clean package -Dnative -Dnative-image.docker-build=true -Dquarkus.native.container-build=true;
 
 ```
 
